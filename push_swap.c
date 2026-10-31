@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/10/24 19:26:15 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/10/30 16:41:33 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ char	*check_flag(char **argv, int *i)
 	char	*flag;
 
 	flag = "--adaptive";
-	if (!ft_strncmp(argv[1], "--simple", 8) || !ft_strncmp(argv[1], "--medium", 8))
+	if (!ft_strncmp(argv[1], "--simple", 8) || !ft_strncmp(argv[1], "--medium",
+			8))
 	{
 		flag = argv[1];
 		(*i)++;
 	}
-	else if (!ft_strncmp(argv[1], "--complex", 9) || !ft_strncmp(argv[1], "--adaptive", 10))
+	else if (!ft_strncmp(argv[1], "--complex", 9) || !ft_strncmp(argv[1],
+				"--adaptive", 10))
 	{
 		flag = argv[1];
 		(*i)++;
@@ -33,7 +35,7 @@ char	*check_flag(char **argv, int *i)
 }
 
 //checks for non ints;
-char *check_input(int argc, char **argv)
+char	*check_input(int argc, char **argv)
 {
 	int		i;
 	size_t	j;
@@ -107,30 +109,42 @@ t_list	*init_a(int argc, char **argv, char *flag)
 	}
 	return (ret);
 }
+int	get_list_val(int lst_i, t_list *lst)
+{
+	int	i;
 
-// double	compute_disorder(t_list *a)
-// {
-// 	double	mistakes;
-// 	double	pairs;
-// 	int		i;
-// 	int		j;
+	i = 0;
+	while (lst && lst_i != i)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (*(int *)lst->content);
+}
+double	compute_disorder(t_list *a)
+{
+	double	mistakes;
+	double	pairs;
+	int		i;
+	int		j;
 
-// 	mistakes = 0;
-// 	pairs = 0;
-// 	i = 0;
-// 	while (i < ft_lstsize(a) - 1)
-// 	{
-// 		j = i + 1;
-// 		while (j < ft_lstsize(a) - 1)
-// 		{
-// 			pairs += 1;
-// 			if()
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return (mistakes / pairs);
-// }
+	mistakes = 0;
+	pairs = 0;
+	i = 0;
+	while (i < ft_lstsize(a))
+	{
+		j = i + 1;
+		while (j < ft_lstsize(a))
+		{
+			pairs += 1;
+			if (get_list_val(i, a) > get_list_val(j, a))
+				mistakes += 1;
+			j++;
+		}
+		i++;
+	}
+	return (mistakes / pairs);
+}
 
 void	print_list(t_list *lst_a, t_list *lst_b)
 {
@@ -171,8 +185,10 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	b = NULL;
+	printf("%f",compute_disorder(a));
+	
 	//print_list(a, b);
-	bubble_sort(&a, &b);
+	//bubble_sort(&a, &b);
 	//printf("%i", lstcheck_dupe(a));
 	//printf("%f\n",compute_disorder(a));
 	return (0);
