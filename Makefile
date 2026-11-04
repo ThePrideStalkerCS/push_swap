@@ -1,7 +1,7 @@
 NAME = push_swap
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 LIBFT_DIR = ./lib_ft
 PRINTF_DIR = ./ft_printf
@@ -10,8 +10,11 @@ LIBFT = $(LIBFT_DIR)/libft.a
 PRINTF = $(PRINTF_DIR)/libftprintf.a
 
 SRCS = push_swap.c \
-	   operation_p1.c \
-	   operation_p2.c
+	   operations1.c \
+	   operations2.c \
+	   utils_lst1.c \
+	   utils1.c \
+	   validate.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

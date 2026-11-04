@@ -6,106 +6,39 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/10/30 16:41:33 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/04 17:46:13 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
-#include "push_swap.h"
+#include "utils.h"
+#include "validate.h"
 #include <stdio.h>
 
-char	*check_flag(char **argv, int *i)
-{
-	char	*flag;
-
-	flag = "--adaptive";
-	if (!ft_strncmp(argv[1], "--simple", 8) || !ft_strncmp(argv[1], "--medium",
-			8))
-	{
-		flag = argv[1];
-		(*i)++;
-	}
-	else if (!ft_strncmp(argv[1], "--complex", 9) || !ft_strncmp(argv[1],
-				"--adaptive", 10))
-	{
-		flag = argv[1];
-		(*i)++;
-	}
-	return (flag);
-}
-
-//checks for non ints;
-char	*check_input(int argc, char **argv)
-{
-	int		i;
-	size_t	j;
-	size_t	arg_len;
-	char	*flag;
-
-	i = 1;
-	flag = check_flag(argv, &i);
-	while (i < argc)
-	{
-		j = 0;
-		arg_len = ft_strlen(argv[i]);
-		while (j < arg_len)
-		{
-			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
-			{
-				if (arg_len >= 2 && !(argv[i][0] == '-'))
-					return (NULL);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (flag);
-}
-
-// checks duplicates in the list by maratana
-int	lstcheck_dupe(t_list *lst)
-{
-	t_list	*tmp;
-
-	while (lst)
-	{
-		tmp = lst->next;
-		while (tmp)
-		{
-			if (*(int *)lst->content == *(int *)tmp->content)
-				return (1);
-			tmp = tmp->next;
-		}
-		lst = lst->next;
-	}
-	return (0);
-}
-
 //inits stack a by maratana
-t_list	*init_a(int argc, char **argv, char *flag)
+t_list	*init_a(char **argv)
 {
 	t_list	*ret;
 	t_list	*new;
 	int		i;
-	int		*n;
+	int		*num;
 
-	if (argv[1] == flag)
-		i = 2;
-	else
-		i = 1;
-	n = malloc(sizeof(int));
-	if (!n)
-		return (NULL);
-	*n = ft_atoi(argv[i]);
-	ret = ft_lstnew(n);
-	i++;
-	while (i < argc)
-	{
-		n = malloc(sizeof(int));
-		*n = ft_atoi(argv[i]);
-		new = ft_lstnew(n);
-		ft_lstadd_back(&ret, new);
+	i = 1;
+	while (argv[i] && is_flag(argv[i]))
 		i++;
+	if (!argv[i])
+		return (NULL);
+	num = malloc(sizeof(4));
+	*num = myatoi(argv[i++]);
+	ret = lstnew(num);
+	while (argv[i])
+	{
+		if (is_flag(argv[i++]))
+			continue ;
+		num = malloc(4);
+		*num = myatoi(argv[i - 1]);
+		new = lstnew(num);
+		lstadd_back(&ret, new);
 	}
 	return (ret);
 }
@@ -121,20 +54,21 @@ int	get_list_val(int lst_i, t_list *lst)
 	}
 	return (*(int *)lst->content);
 }
+
 double	compute_disorder(t_list *a)
 {
-	double	mistakes;
-	double	pairs;
-	int		i;
-	int		j;
+	double			mistakes;
+	double			pairs;
+	unsigned int	i;
+	unsigned int				j;
 
 	mistakes = 0;
 	pairs = 0;
 	i = 0;
-	while (i < ft_lstsize(a))
+	while (i < lstsize(a))
 	{
 		j = i + 1;
-		while (j < ft_lstsize(a))
+		while (j < lstsize(a))
 		{
 			pairs += 1;
 			if (get_list_val(i, a) > get_list_val(j, a))
@@ -166,30 +100,68 @@ void	print_list(t_list *lst_a, t_list *lst_b)
 	ft_printf("%c %c\n", 'a', 'b');
 }
 
+int	is_sorted(t_list **a)
+{
+	t_list	*temp;
+
+	temp = *a;
+	while (temp->next)
+	{
+		if (*(int *)temp->content > *(int *)temp->next->content)
+			return (0);
+		temp = temp->next;
+	}
+	return (1);
+}
+void	bubble_sort(t_list **a, t_list **b)
+{
+	t_list	*temp;
+
+	while (is_sorted(a) == 0)
+	{
+		while (*a)
+		{
+			if ((*a)->next)
+			{
+				temp = (*a)->next;
+				if (*(int *)(*a)->content > *(int *)temp->content)
+					swap(a, 'a');
+			}
+			push_b(a, b);
+		}
+		while (*b)
+		{
+			if ((*b)->next)
+			{
+				temp = (*b)->next;
+				if (*(int *)(*b)->content < *(int *)temp->content)
+					swap(b, 'b');
+			}
+			push_a(a, b);
+		}
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*a;
 	t_list	*b;
 
-	if (argc < 2)
+	//---- VALDATION -----
+	if (argc <= 1)
 		return (0);
-	if (!check_input(argc, argv))
+	if (!validate_input(argv))
 	{
-		ft_putstr_fd("Error\n", 2);
+		write(2, "Error\n", 6);
 		return (0);
 	}
-	a = init_a(argc, argv, check_input(argc, argv));
-	if (lstcheck_dupe(a))
-	{
-		ft_putstr_fd("Error\n", 2);
-		return (0);
-	}
+	//---- END VALDATION -----
+	a = init_a(argv);
 	b = NULL;
-	printf("%f",compute_disorder(a));
+	printf("%f\n", compute_disorder(a));
 	
-	//print_list(a, b);
-	//bubble_sort(&a, &b);
-	//printf("%i", lstcheck_dupe(a));
-	//printf("%f\n",compute_disorder(a));
-	return (0);
+	// ft_printf("%d", *(int *)a->content);
+	print_list(a, b);
+	bubble_sort(&a, &b);
+	print_list(a, b);
 }

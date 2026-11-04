@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccascava <ccascava@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 13:32:56 by ccascava          #+#    #+#             */
-/*   Updated: 2026/10/31 15:30:33 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/04 15:23:54 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_putnbr_fd(int n, int fd);
 typedef struct s_list
 {
 	void			*content;
-	int			rank;
+	int				rank;
 	struct s_list	*next;
 }					t_list;
 

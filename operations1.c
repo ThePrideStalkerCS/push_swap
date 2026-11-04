@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operation_p1.c                                     :+:      :+:    :+:   */
+/*   operations1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccascava <ccascava@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 15:02:13 by ccascava          #+#    #+#             */
-/*   Updated: 2026/10/24 19:21:48 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/04 17:37:32 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,47 +80,4 @@ void	push_b(t_list **lst_a, t_list **lst_b)
 	*lst_b = head_a;
 	*lst_a = temp;
 	ft_printf("%s\n", "pb");
-}
-
-int	is_sorted(t_list **a)
-{
-	t_list	*temp;
-
-	temp = *a;
-	while (temp->next)
-	{
-		if (*(int *)temp->content > *(int *)temp->next->content)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
-}
-
-void	bubble_sort(t_list **a, t_list **b)
-{
-	t_list	*temp;
-
-	while (is_sorted(a) == 0)
-	{
-		while (*a)
-		{
-			if ((*a)->next)
-			{
-				temp = (*a)->next;
-				if (*(int *)(*a)->content > *(int *)temp->content)
-					swap(a, 'a');
-			}
-			push_b(a, b);
-		}
-		while (*b)
-		{
-			if ((*b)->next)
-			{
-				temp = (*b)->next;
-				if (*(int *)(*b)->content < *(int *)temp->content)
-					swap(b, 'b');
-			}
-			push_a(a, b);
-		}
-	}
 }
