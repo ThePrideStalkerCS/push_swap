@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:47:35 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/11 15:56:20 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/16 11:32:41 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	rotate(t_list **lst, char c)
 	first->next = NULL;
 	lstadd_back(lst, first);
 	if (c == 'a')
-		write(1, "rra\n", 4);
+		write(1, "ra\n", 4);
 	else if (c == 'b')
-		write(1, "rrb\n", 4);
+		write(1, "rb\n", 4);
 	else
-		ft_printf("%s","error! This stack doesnt exist\n");
+		ft_printf("%s", "error! This stack doesnt exist\n");
 }
 
 //rr maratana

@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:11:46 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/04 17:45:22 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/16 11:20:40 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_list	*lstnew(void *content)
 	list->next = NULL;
 	return (list);
 }
+
 void	lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;

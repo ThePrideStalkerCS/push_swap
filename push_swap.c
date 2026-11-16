@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/11 15:45:42 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/16 12:03:26 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ double	compute_disorder(t_list *a)
 {
 	double			mistakes;
 	double			pairs;
-	unsigned int	i;
-	unsigned int				j;
+	int				i;
+	int				j;
 
 	mistakes = 0;
 	pairs = 0;
@@ -163,7 +163,7 @@ int	main(int argc, char **argv)
 	
 	complex_sort(&a, &b, lstsize(a));
 	// ft_printf("%d", *(int *)a->content);
-	//print_list(a, b);
+	print_list(a, b);
 	//bubble_sort(&a, &b);
 	//print_list(a, b);
 }

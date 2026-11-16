@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:13:27 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/04 17:19:50 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/16 11:20:06 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ int	is_num(char c)
 	}
 	return (0);
 }
+
 int	is_space(char c)
 {
 	if (c == ' ' || (c >= 9 && c <= 13))
+	{
 		return (1);
+	}
 	return (0);
 }
 
