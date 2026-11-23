@@ -13,7 +13,9 @@
 #ifndef VALIDATE_H
 # define VALIDATE_H
 
-int	is_flag(char *s);
-int	validate_input(char **argv);
+# include "utils.h"
+
+int	is_flag(char *s, t_bench *bench);
+int	validate_input(char **argv, t_bench *bench);
 
 #endif

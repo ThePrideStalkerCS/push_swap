@@ -25,16 +25,16 @@ t_list	*init_a(char **argv)
 	int		*num;
 
 	i = 1;
-	while (argv[i] && is_flag(argv[i]))
+	if (!mystrcmp(argv[i],"--bench"))
 		i++;
-	if (!argv[i])
-		return (NULL);
+	if(is_flag(argv[i],NULL))
+		i++;
 	num = malloc(sizeof(4));
 	*num = myatoi(argv[i++]);
 	ret = lstnew(num);
 	while (argv[i])
 	{
-		if (is_flag(argv[i++]))
+		if (is_flag(argv[i++],NULL))
 			continue ;
 		num = malloc(4);
 		*num = myatoi(argv[i - 1]);
@@ -56,10 +56,10 @@ int	get_list_val(int lst_i, t_list *lst)
 	return (*(int *)lst->content);
 }
 
-double	compute_disorder(t_list *a)
+bool	compute_disorder(t_list *a)
 {
-	double			mistakes;
-	double			pairs;
+	float			mistakes;
+	float			pairs;
 	int				i;
 	int				j;
 
@@ -114,7 +114,7 @@ int	is_sorted(t_list **a)
 	}
 	return (1);
 }
-void	bubble_sort(t_list **a, t_list **b)
+void	bubble_sort(t_list **a, t_list **b,t_bench *bench)
 {
 	t_list	*temp;
 
@@ -126,9 +126,9 @@ void	bubble_sort(t_list **a, t_list **b)
 			{
 				temp = (*a)->next;
 				if (*(int *)(*a)->content > *(int *)temp->content)
-					swap(a, 'a');
+					swap(a, 'a',bench);
 			}
-			push_b(a, b);
+			push_b(a, b,bench);
 		}
 		while (*b)
 		{
@@ -136,9 +136,9 @@ void	bubble_sort(t_list **a, t_list **b)
 			{
 				temp = (*b)->next;
 				if (*(int *)(*b)->content < *(int *)temp->content)
-					swap(b, 'b');
+					swap(b, 'b',bench);
 			}
-			push_a(a, b);
+			push_a(a, b,bench);
 		}
 	}
 }
@@ -147,23 +147,29 @@ int	main(int argc, char **argv)
 {
 	t_list	*a;
 	t_list	*b;
+	int valid;
+	t_bench bench;
 
+	bench= (t_bench){0};
 	//---- VALDATION -----
 	if (argc <= 1)
 		return (0);
-	if (!validate_input(argv))
-	{
+	valid = validate_input(argv, &bench);
+	if (valid == 0)
 		write(2, "Error\n", 6);
+	if (valid == 2 || valid == 0)
 		return (0);
-	}
 	//---- END VALDATION -----
 	a = init_a(argv);
 	b = NULL;
 	printf("%f\n", compute_disorder(a));
+	bench.disorder = compute_disorder(a);
 	
-	complex_sort(&a, &b, lstsize(a));
+	// complex_sort(&a, &b, lstsize(a));
 	// ft_printf("%d", *(int *)a->content);
-	print_list(a, b);
-	//bubble_sort(&a, &b);
-	//print_list(a, b);
+	// print_list(a, b);
+	bubble_sort(&a, &b,&bench);
+	// print_list(a, b);
+	if (bench.enabled)
+		display_bench(bench);
 }

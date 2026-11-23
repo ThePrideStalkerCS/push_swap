@@ -13,7 +13,7 @@
 #include "push_swap.h"
 
 //sa & sb ccascava
-void	swap(t_list **lst, char c)
+void	swap(t_list **lst, char c,t_bench *bench)
 {
 	t_list	*head;
 	t_list	*to_swap;
@@ -35,20 +35,29 @@ void	swap(t_list **lst, char c)
 		*lst = to_swap;
 	}
 	if (c == 'a')
+	{
 		ft_printf("%s\n", "sa");
+		bench->sa++;
+	}
 	else if (c == 'b')
+	{
 		ft_printf("%s\n", "sb");
+		bench->sb++;
+	}
+	bench->operations++;
 }
 //ss ccascava
 
-void	swap_both(t_list **lst_a, t_list **lst_b)
+void	swap_both(t_list **lst_a, t_list **lst_b,t_bench *bench)
 {
-	swap(lst_a, 'a');
-	swap(lst_b, 'b');
+	swap(lst_a, 'a',bench);
+	swap(lst_b, 'b',bench);
+	bench->ss++;
+	bench->operations++;
 }
 //pa & pb ccascava
 
-void	push_a(t_list **lst_a, t_list **lst_b)
+void	push_a(t_list **lst_a, t_list **lst_b, t_bench *bench)
 {
 	t_list	*head_a;
 	t_list	*head_b;
@@ -63,9 +72,11 @@ void	push_a(t_list **lst_a, t_list **lst_b)
 	*lst_a = head_b;
 	*lst_b = temp;
 	ft_printf("%s\n", "pa");
+	bench->pa++;
+	bench->operations++;
 }
 
-void	push_b(t_list **lst_a, t_list **lst_b)
+void	push_b(t_list **lst_a, t_list **lst_b, t_bench *bench)
 {
 	t_list	*head_a;
 	t_list	*head_b;
@@ -80,4 +91,6 @@ void	push_b(t_list **lst_a, t_list **lst_b)
 	*lst_b = head_a;
 	*lst_a = temp;
 	ft_printf("%s\n", "pb");
+	bench->pb++;
+	bench->operations++;
 }

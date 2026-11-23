@@ -13,22 +13,26 @@
 #include "utils.h"
 #include <stdio.h>
 
-int	is_flag(char *s)
+int	is_flag(char *s,t_bench *bench)
 {
 	int		i;
-	char	*flags[6];
+	char	*flags[5];
 
 	flags[0] = "--simple";
 	flags[1] = "--medium";
 	flags[2] = "--complex";
 	flags[3] = "--adaptive";
-	flags[4] = "--bench";
-	flags[5] = NULL;
+	flags[4] = NULL;
 	i = 0;
 	while (flags[i])
 	{
 		if (!mystrcmp(flags[i], s))
+		{
+			if(bench)
+				bench->flag=i;
 			return (1);
+		}
+			
 		i++;
 	}
 	return (0);
@@ -41,10 +45,12 @@ static int	validate_no_dupe(char **argv)
 	int	j;
 
 	i = 1;
+	if (!mystrcmp(argv[i],"--bench"))
+		i++;
+	if(is_flag(argv[i],NULL))
+		i++;
 	while (argv[i])
 	{
-		if (is_flag(argv[i]))
-			i++;
 		val = myatoi(argv[i]);
 		j = 1;
 		while (argv[i + j])
@@ -58,31 +64,48 @@ static int	validate_no_dupe(char **argv)
 	return (1);
 }
 
-int	validate_input(char **argv)
+static int	is_valid_num(char *str)
 {
 	int	i;
-	int	j;
 
-	j = 0;
+	i = 0;
+	while (is_space(str[i]))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!is_num(str[i]))
+		return (0);
+	while (is_num(str[i]))
+		i++;
+	return (str[i] == '\0');
+}
+
+int	validate_input(char **argv, t_bench *bench)
+{
+	int i;
+	int has_num;
+
+	has_num=0;
 	i = 1;
-	while (argv[i])
+	if (!mystrcmp(argv[i],"--bench"))
 	{
-		while (argv[i] && is_flag(argv[i]))
-			i++;
-		if (!argv[i])
-			return (1);
-		j = 0;
-		while (is_space(argv[i][j]))
-			j++;
-		if (argv[i][j] && (argv[i][j] == '+' || argv[i][j] == '-'))
-			j++;
-		while (argv[i][j] && is_num(argv[i][j]))
-			j++;
-		if (argv[i][j] || !is_num(argv[i][j - 1]))
-			return (0);
+		bench->enabled=1;
 		i++;
 	}
+	if(is_flag(argv[i],bench))
+		i++;
+	while (argv[i])
+	{
+		if (!is_valid_num(argv[i]))
+			return (0);
+		else 
+			has_num=1;
+		i++;
+	}
+	if(!has_num)
+		return(2);
 	if (!validate_no_dupe(argv))
 		return (0);
 	return (1);
 }
+

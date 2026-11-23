@@ -18,7 +18,7 @@
 
 t_list	*init_a(char **argv);
 void	print_list(t_list *lst_a, t_list *lst_b);
-void	bubble_sort(t_list **a, t_list **b);
+void	bubble_sort(t_list **a, t_list **b,t_bench *bench);
 int		is_sorted(t_list **lst);
 void	complex_sort(t_list **a, t_list **b, int size);
 void	med_sort(t_list **a, t_list **b, int size);

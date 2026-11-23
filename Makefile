@@ -1,7 +1,8 @@
 NAME = push_swap
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+# -Wall -Wextra -Werror
+CFLAGS = -g
 
 PRINTF_DIR = ./ft_printf
 
@@ -18,7 +19,8 @@ SRCS = push_swap.c \
 	   utils_med_sort.c \
 	   utils_bubble.c \
 	   utils_turk.c \
-	   utils_turk_1.c
+	   utils_turk_1.c \
+	   bench.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

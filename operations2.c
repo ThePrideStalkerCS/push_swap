@@ -14,7 +14,7 @@
 #include "utils.h"
 
 //ra & rb maratana
-void	rotate(t_list **lst, char c)
+void	rotate(t_list **lst, char c,t_bench *bench)
 {
 	t_list	*first;
 
@@ -23,22 +23,32 @@ void	rotate(t_list **lst, char c)
 	first->next = NULL;
 	lstadd_back(lst, first);
 	if (c == 'a')
+	{
 		write(1, "ra\n", 4);
+		bench->ra++;
+		bench->operations++;
+	}
 	else if (c == 'b')
+	{
 		write(1, "rb\n", 4);
+		bench->rb++;
+		bench->operations++;
+	}
 	else
 		ft_printf("%s", "error! This stack doesnt exist\n");
 }
 
 //rr maratana
-void	rotate_both(t_list **lst_a, t_list **lst_b)
+void	rotate_both(t_list **lst_a, t_list **lst_b,t_bench *bench)
 {
-	rotate(lst_a, 'a');
-	rotate(lst_b, 'b');
+	rotate(lst_a, 'a',bench);
+	rotate(lst_b, 'b',bench);
+	bench->rr++;
+	bench->operations++;
 }
 
 //rra & rrb maratana
-void	rev_rotate(t_list **lst, char c)
+void	rev_rotate(t_list **lst, char c,t_bench *bench)
 {
 	t_list	*l;
 	t_list	*prev;
@@ -50,16 +60,26 @@ void	rev_rotate(t_list **lst, char c)
 	prev->next = NULL;
 	lstadd_front(lst, l);
 	if (c == 'a')
+	{
 		write(1, "rra\n", 4);
+		bench->rra++;
+		bench->operations++;
+	}
 	else if (c == 'b')
+	{
 		write(1, "rrb\n", 4);
+		bench->rrb++;
+		bench->operations++;
+	}
 	else
 		ft_printf("%s", "error! This stack doesnt exist\n");
 }
 
 //rrr maratana
-void	rev_rotate_both(t_list **lst_a, t_list **lst_b)
+void	rev_rotate_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
 {
-	rev_rotate(lst_a, 'a');
-	rev_rotate(lst_b, 'b');
+	rev_rotate(lst_a, 'a',bench);
+	rev_rotate(lst_b, 'b',bench);
+	bench->rrr++;
+	bench->operations++;
 }
