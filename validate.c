@@ -6,14 +6,14 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 16:57:38 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/04 17:39:41 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:21:54 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include <stdio.h>
 
-int	is_flag(char *s,t_bench *bench)
+int	is_flag(char *s, t_bench *bench)
 {
 	int		i;
 	char	*flags[5];
@@ -28,11 +28,10 @@ int	is_flag(char *s,t_bench *bench)
 	{
 		if (!mystrcmp(flags[i], s))
 		{
-			if(bench)
-				bench->flag=i;
+			if (bench)
+				bench->flag = i;
 			return (1);
 		}
-			
 		i++;
 	}
 	return (0);
@@ -45,9 +44,9 @@ static int	validate_no_dupe(char **argv)
 	int	j;
 
 	i = 1;
-	if (!mystrcmp(argv[i],"--bench"))
+	if (!mystrcmp(argv[i], "--bench"))
 		i++;
-	if(is_flag(argv[i],NULL))
+	if (is_flag(argv[i], NULL))
 		i++;
 	while (argv[i])
 	{
@@ -82,30 +81,29 @@ static int	is_valid_num(char *str)
 
 int	validate_input(char **argv, t_bench *bench)
 {
-	int i;
-	int has_num;
+	int	i;
+	int	has_num;
 
-	has_num=0;
+	has_num = 0;
 	i = 1;
-	if (!mystrcmp(argv[i],"--bench"))
+	if (!mystrcmp(argv[i], "--bench"))
 	{
-		bench->enabled=1;
+		bench->enabled = 1;
 		i++;
 	}
-	if(is_flag(argv[i],bench))
+	if (is_flag(argv[i], bench))
 		i++;
 	while (argv[i])
 	{
 		if (!is_valid_num(argv[i]))
 			return (0);
-		else 
-			has_num=1;
+		else
+			has_num = 1;
 		i++;
 	}
-	if(!has_num)
-		return(2);
+	if (!has_num)
+		return (2);
 	if (!validate_no_dupe(argv))
 		return (0);
 	return (1);
 }
-

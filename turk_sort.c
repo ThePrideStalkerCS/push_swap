@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   turk_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccascava <ccascava@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 14:51:49 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/16 11:18:20 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:23:07 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_list	*find_cheapest(t_list **b)
 	return (cheapest);
 }
 
-void	move_cheapest(t_list **a, t_list **b, t_list *cheapest,t_bench *bench)
+void	move_cheapest(t_list **a, t_list **b, t_list *cheapest, t_bench *bench)
 {
 	int	pos_cheapest;
 	int	pos_target;
@@ -39,16 +39,16 @@ void	move_cheapest(t_list **a, t_list **b, t_list *cheapest,t_bench *bench)
 	while (cheapest != *b)
 	{
 		if (pos_cheapest <= lstsize(*b) / 2)
-			rotate(b, 'b',bench);
+			rotate(b, 'b', bench);
 		else
-			rev_rotate(b, 'b',bench);
+			rev_rotate(b, 'b', bench);
 	}
 	while (cheapest->target != *a)
 	{
 		if (pos_target <= lstsize(*a) / 2)
-			rotate(a, 'a',bench);
+			rotate(a, 'a', bench);
 		else
-			rev_rotate(a, 'a',bench);
+			rev_rotate(a, 'a', bench);
 	}
 }
 
@@ -73,7 +73,7 @@ t_list	*get_smallest(t_list **a)
 	return (smallest);
 }
 
-void	move_smallest(t_list **a, t_list *smallest,t_bench *bench)
+void	move_smallest(t_list **a, t_list *smallest, t_bench *bench)
 {
 	int		position;
 	t_list	*temp;
@@ -90,13 +90,13 @@ void	move_smallest(t_list **a, t_list *smallest,t_bench *bench)
 	while (smallest != *a)
 	{
 		if (position <= lstsize(*a) / 2)
-			rotate(a, 'a',bench);
+			rotate(a, 'a', bench);
 		else
-			rev_rotate(a, 'a',bench);
+			rev_rotate(a, 'a', bench);
 	}
 }
 
-void	complex_sort(t_list **a, t_list **b, int size,t_bench *bench)
+void	complex_sort(t_list **a, t_list **b, int size, t_bench *bench)
 {
 	int		*heap;
 	t_list	*cheapest;
@@ -106,17 +106,17 @@ void	complex_sort(t_list **a, t_list **b, int size,t_bench *bench)
 	if (heap == NULL)
 		return ;
 	while (lstsize(*a) > 3)
-		push_b(a, b,bench);
-	sort_three_in_a(a);
+		push_b(a, b, bench);
+	sort_three_in_a(a, bench);
 	while (*b)
 	{
 		assign_target(a, b);
 		find_cost(a, b);
 		cheapest = find_cheapest(b);
-		move_cheapest(a, b, cheapest,bench);
-		push_a(a, b,bench);
+		move_cheapest(a, b, cheapest, bench);
+		push_a(a, b, bench);
 	}
 	smallest = get_smallest(a);
-	move_smallest(a, smallest,bench);
+	move_smallest(a, smallest, bench);
 	free(heap);
 }

@@ -3,36 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bench.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maratana <maratana@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 16:55:16 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/21 16:55:16 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:21:44 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-# include "ft_printf/ft_printf.h"
-# include "utils.h"
+#include "ft_printf/ft_printf.h"
+#include "utils.h"
 #include <stdio.h>
-
-// typedef struct s_bench
-// {
-// 	int enabled;
-// 	double disorder;
-// 	int flag;
-// 	int operations;
-// 	int sa;
-// 	int sb;
-// 	int ss;
-// 	int pb;
-// 	int pa;
-// 	int ra;
-// 	int rb;
-// 	int rr;
-// 	int rra;
-// 	int rrb;
-// 	int rrr;
-// } t_bench;
+#include <unistd.h>
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -79,7 +60,7 @@ void	putfloat(double f, int fd)
 	long	decimal;
 
 	integer = (long)f;
-	decimal = (long)((f - integer) * 100 +  0.500001);
+	decimal = (long)((f - integer) * 100 + 0.500001);
 	if (decimal == 100)
 	{
 		integer++;
@@ -92,23 +73,21 @@ void	putfloat(double f, int fd)
 	ft_putnbr_fd(decimal, fd);
 }
 
-void display_bench(t_bench b)
+void	display_bench(t_bench b)
 {
-    ft_putstr_fd("[bench] disorder: ",2);
-    putfloat(b.disorder*100,2);
-    write(2,"%\n",2);
-    
-    ft_putstr_fd("[bench] strategy: ",2);
-    write(2,"\n",1);
-
-    ft_putstr_fd("[bench] total_ops: ",2);
-	ft_putnbr_fd(b.operations,2);
-    write(2,"\n",1);
-	printf("[bench] sa: %i sb: %i ss: %i pa: %i pb: %i\n",b.sa, b.sb, b.ss,b.pa,b.pb);
-	printf("[bench] ra: %i rb: %i rr: %i rra: %i rrb: %i rrr: %i\n",b.ra,b.rb,b.rr,b.rra,b.rrb,b.rrr);
+	ft_putstr_fd("[bench] disorder: ", 2);
+	putfloat(b.disorder * 100, 2);
+	write(2, "%\n", 2);
+	ft_putstr_fd("[bench] strategy: ", 2);
+	write(2, "\n", 1);
+	ft_putstr_fd("[bench] total_ops: ", 2);
+	ft_putnbr_fd(b.operations, 2);
+	write(2, "\n", 1);
+	printf("[bench] sa: %i sb: %i ss: %i pa: %i pb: %i\n", b.sa, b.sb, b.ss,
+		b.pa, b.pb);
+	printf("[bench] ra: %i rb: %i rr: %i rra: %i rrb: %i rrr: %i\n", b.ra, b.rb,
+		b.rr, b.rra, b.rrb, b.rrr);
 }
-
-
 
 // int main (void)
 // {
@@ -117,4 +96,3 @@ void display_bench(t_bench b)
 
 //     display_bench(bench);
 // }
-

@@ -6,13 +6,13 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/23 13:02:57 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:35:56 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
-#include "utils.h"
 #include "push_swap.h"
+#include "utils.h"
 #include "validate.h"
 #include <stdio.h>
 
@@ -25,16 +25,16 @@ t_list	*init_a(char **argv)
 	int		*num;
 
 	i = 1;
-	if (!mystrcmp(argv[i],"--bench"))
+	if (!mystrcmp(argv[i], "--bench"))
 		i++;
-	if(is_flag(argv[i],NULL))
+	if (is_flag(argv[i], NULL))
 		i++;
 	num = malloc(sizeof(4));
 	*num = myatoi(argv[i++]);
 	ret = lstnew(num);
 	while (argv[i])
 	{
-		if (is_flag(argv[i++],NULL))
+		if (is_flag(argv[i++], NULL))
 			continue ;
 		num = malloc(4);
 		*num = myatoi(argv[i - 1]);
@@ -58,10 +58,10 @@ int	get_list_val(int lst_i, t_list *lst)
 
 double	compute_disorder(t_list *a)
 {
-	float			mistakes;
-	float			pairs;
-	int				i;
-	int				j;
+	float	mistakes;
+	float	pairs;
+	int		i;
+	int		j;
 
 	mistakes = 0;
 	pairs = 0;
@@ -114,7 +114,7 @@ int	is_sorted(t_list **a)
 	}
 	return (1);
 }
-void	bubble_sort(t_list **a, t_list **b,t_bench *bench)
+void	bubble_sort(t_list **a, t_list **b, t_bench *bench)
 {
 	t_list	*temp;
 
@@ -126,9 +126,9 @@ void	bubble_sort(t_list **a, t_list **b,t_bench *bench)
 			{
 				temp = (*a)->next;
 				if (*(int *)(*a)->content > *(int *)temp->content)
-					swap(a, 'a',bench);
+					swap(a, 'a', bench);
 			}
-			push_b(a, b,bench);
+			push_b(a, b, bench);
 		}
 		while (*b)
 		{
@@ -136,9 +136,9 @@ void	bubble_sort(t_list **a, t_list **b,t_bench *bench)
 			{
 				temp = (*b)->next;
 				if (*(int *)(*b)->content < *(int *)temp->content)
-					swap(b, 'b',bench);
+					swap(b, 'b', bench);
 			}
-			push_a(a, b,bench);
+			push_a(a, b, bench);
 		}
 	}
 }
@@ -147,10 +147,10 @@ int	main(int argc, char **argv)
 {
 	t_list	*a;
 	t_list	*b;
-	int valid;
-	t_bench bench;
+	int		valid;
+	t_bench	bench;
 
-	bench= (t_bench){0};
+	bench = (t_bench){0};
 	//---- VALDATION -----
 	if (argc <= 1)
 		return (0);
@@ -164,11 +164,10 @@ int	main(int argc, char **argv)
 	b = NULL;
 	printf("%f\n", compute_disorder(a));
 	bench.disorder = compute_disorder(a);
-	
 	// complex_sort(&a, &b, lstsize(a));
 	// ft_printf("%d", *(int *)a->content);
 	// print_list(a, b);
-	bubble_sort(&a, &b,&bench);
+	bubble_sort(&a, &b, &bench);
 	// print_list(a, b);
 	if (bench.enabled)
 		display_bench(bench);

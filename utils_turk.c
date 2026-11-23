@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_turk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccascava <ccascava@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 10:28:13 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/16 11:50:28 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:22:09 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ int	get_position(t_list **lst, t_list *target)
 	return (-1);
 }
 
-void	manage_three(t_list **a, int largest_index)
+void	manage_three(t_list **a, int largest_index, t_bench *bench)
 {
 	t_list	*temp;
 
 	if (largest_index == 0)
-		rotate(a, 'a');
+		rotate(a, 'a', bench);
 	else if (largest_index == 1)
-		rev_rotate(a, 'a');
+		rev_rotate(a, 'a', bench);
 	temp = *a;
 	if (*(int *)temp->content > *(int *)temp->next->content)
-		swap(a, 'a');
+		swap(a, 'a', bench);
 }
 
-void	sort_three_in_a(t_list **a)
+void	sort_three_in_a(t_list **a, t_bench *bench)
 {
 	t_list	*temp;
 	int		index;
@@ -68,7 +68,7 @@ void	sort_three_in_a(t_list **a)
 		temp = temp->next;
 	}
 	if (!is_sorted(a))
-		manage_three(a, largest_index);
+		manage_three(a, largest_index, bench);
 }
 
 void	assign_target(t_list **a, t_list **b)

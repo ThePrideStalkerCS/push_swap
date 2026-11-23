@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_med_sort.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccascava <ccascava@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 10:20:25 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/16 10:26:47 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:22:22 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	create_buckets(int size)
 	return (buckets);
 }
 
-void	top_up(t_list **lst, t_list *temp, char c)
+void	top_up(t_list **lst, t_list *temp, char c, t_bench *bench)
 {
 	int	position;
 
@@ -31,17 +31,17 @@ void	top_up(t_list **lst, t_list *temp, char c)
 	while (temp != *lst)
 	{
 		if (position <= lstsize(*lst) / 2)
-			rotate(lst, c);
+			rotate(lst, c, bench);
 		else
-			rev_rotate(lst, c);
+			rev_rotate(lst, c, bench);
 	}
 }
 
-void	organise_b(t_list **b, int start, int end)
+void	organise_b(t_list **b, int start, int end, t_bench *bench)
 {
 	int	mid;
 
 	mid = (start + end) / 2;
 	if ((*b)->rank < mid)
-		rotate(b, 'b');
+		rotate(b, 'b', bench);
 }

@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:47:35 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/16 11:32:41 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:23:17 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "utils.h"
 
 //ra & rb maratana
-void	rotate(t_list **lst, char c,t_bench *bench)
+void	rotate(t_list **lst, char c, t_bench *bench)
 {
 	t_list	*first;
 
@@ -39,16 +39,16 @@ void	rotate(t_list **lst, char c,t_bench *bench)
 }
 
 //rr maratana
-void	rotate_both(t_list **lst_a, t_list **lst_b,t_bench *bench)
+void	rotate_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
 {
-	rotate(lst_a, 'a',bench);
-	rotate(lst_b, 'b',bench);
+	rotate(lst_a, 'a', bench);
+	rotate(lst_b, 'b', bench);
 	bench->rr++;
 	bench->operations++;
 }
 
 //rra & rrb maratana
-void	rev_rotate(t_list **lst, char c,t_bench *bench)
+void	rev_rotate(t_list **lst, char c, t_bench *bench)
 {
 	t_list	*l;
 	t_list	*prev;
@@ -78,8 +78,8 @@ void	rev_rotate(t_list **lst, char c,t_bench *bench)
 //rrr maratana
 void	rev_rotate_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
 {
-	rev_rotate(lst_a, 'a',bench);
-	rev_rotate(lst_b, 'b',bench);
+	rev_rotate(lst_a, 'a', bench);
+	rev_rotate(lst_b, 'b', bench);
 	bench->rrr++;
 	bench->operations++;
 }

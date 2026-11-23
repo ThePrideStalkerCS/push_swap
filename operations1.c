@@ -6,14 +6,14 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 15:02:13 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/11 15:47:56 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:30:08 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 //sa & sb ccascava
-void	swap(t_list **lst, char c,t_bench *bench)
+void	swap(t_list **lst, char c, t_bench *bench)
 {
 	t_list	*head;
 	t_list	*to_swap;
@@ -48,10 +48,10 @@ void	swap(t_list **lst, char c,t_bench *bench)
 }
 //ss ccascava
 
-void	swap_both(t_list **lst_a, t_list **lst_b,t_bench *bench)
+void	swap_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
 {
-	swap(lst_a, 'a',bench);
-	swap(lst_b, 'b',bench);
+	swap(lst_a, 'a', bench);
+	swap(lst_b, 'b', bench);
 	bench->ss++;
 	bench->operations++;
 }
@@ -90,7 +90,8 @@ void	push_b(t_list **lst_a, t_list **lst_b, t_bench *bench)
 	head_a->next = head_b;
 	*lst_b = head_a;
 	*lst_a = temp;
-	ft_printf("%s\n", "pb");
+	if (!bench->enabled)
+		ft_printf("%s\n", "pb");
 	bench->pb++;
 	bench->operations++;
 }
