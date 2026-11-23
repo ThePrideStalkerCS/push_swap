@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 15:02:13 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/23 13:30:08 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 14:07:38 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	push_b(t_list **lst_a, t_list **lst_b, t_bench *bench)
 	head_a->next = head_b;
 	*lst_b = head_a;
 	*lst_a = temp;
-	if (!bench->enabled)
-		ft_printf("%s\n", "pb");
+	// if (!bench->enabled)
+	ft_printf("%s\n", "pb");
 	bench->pb++;
 	bench->operations++;
 }

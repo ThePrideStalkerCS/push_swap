@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/23 13:35:56 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 14:05:07 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int	main(int argc, char **argv)
 	// ft_printf("%d", *(int *)a->content);
 	// print_list(a, b);
 	bubble_sort(&a, &b, &bench);
-	// print_list(a, b);
+	print_list(a, b);
 	if (bench.enabled)
 		display_bench(bench);
 }
