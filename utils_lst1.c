@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:11:46 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/16 11:20:40 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/23 15:15:29 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,24 @@ t_list	*lstlast(t_list *lst)
 		lst = lst->next;
 	}
 	return (lst);
+}
+
+void	lst_clear(t_list **lst)
+{
+	t_list	*temp;
+	t_list	*current;
+
+	if (*lst == NULL)
+	{
+		return ;
+	}
+	temp = *lst;
+	while (temp)
+	{
+		current = temp;
+		temp = temp->next;
+		free((int *)current->content);
+		free(current);
+	}
+	*lst = NULL;
 }

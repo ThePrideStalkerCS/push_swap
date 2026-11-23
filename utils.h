@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:14:11 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/23 14:40:46 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 15:14:05 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void				lstadd_back(t_list **lst, t_list *new);
 void				lstadd_front(t_list **lst, t_list *new);
 t_list				*lstnew(void *content);
 int					lstsize(t_list *lst);
+void				lst_clear(t_list **lst);
 // --- END LIST UTILS---
 int					is_num(char c);
 int					is_space(char c);
