@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:14:11 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/16 10:26:28 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:02:50 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 typedef struct s_bench
 {
 	int enabled;
-	bool disorder;
+	double disorder;
 	int flag;
 	int operations;
 	int sa;

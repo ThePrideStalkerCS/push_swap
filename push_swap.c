@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/16 12:03:26 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/23 13:02:57 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	get_list_val(int lst_i, t_list *lst)
 	return (*(int *)lst->content);
 }
 
-bool	compute_disorder(t_list *a)
+double	compute_disorder(t_list *a)
 {
 	float			mistakes;
 	float			pairs;
