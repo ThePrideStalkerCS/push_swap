@@ -6,57 +6,39 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 15:02:13 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/23 14:07:38 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 17:27:25 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//sa & sb ccascava
+//sa & sb maratana
 void	swap(t_list **lst, char c, t_bench *bench)
 {
-	t_list	*head;
-	t_list	*to_swap;
-	t_list	*remember;
-	int		count;
+	t_list	*temp;
 
-	if (*lst == NULL)
+	if (!*lst || !(*lst)->next)
 		return ;
-	count = lstsize(*lst);
-	if (count == 1)
-		return ;
-	else
-	{
-		head = *lst;
-		to_swap = (*lst)->next;
-		remember = to_swap->next;
-		head->next = remember;
-		to_swap->next = head;
-		*lst = to_swap;
-	}
+	temp = (*lst)->next;
+	(*lst)->next = temp->next;
+	temp->next = *lst;
+	*lst = temp;
 	if (c == 'a')
 	{
-		ft_printf("%s\n", "sa");
+		if(!bench->enabled)
+			ft_printf("sa\n");
 		bench->sa++;
 	}
 	else if (c == 'b')
 	{
-		ft_printf("%s\n", "sb");
+		if(!bench->enabled)
+			ft_printf("sb\n");
 		bench->sb++;
 	}
 	bench->operations++;
 }
-//ss ccascava
 
-void	swap_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
-{
-	swap(lst_a, 'a', bench);
-	swap(lst_b, 'b', bench);
-	bench->ss++;
-	bench->operations++;
-}
 //pa & pb ccascava
-
 void	push_a(t_list **lst_a, t_list **lst_b, t_bench *bench)
 {
 	t_list	*head_a;
@@ -71,7 +53,8 @@ void	push_a(t_list **lst_a, t_list **lst_b, t_bench *bench)
 	head_b->next = head_a;
 	*lst_a = head_b;
 	*lst_b = temp;
-	ft_printf("%s\n", "pa");
+	if(!bench->enabled)
+		ft_printf("%s\n", "pa");
 	bench->pa++;
 	bench->operations++;
 }
@@ -90,8 +73,16 @@ void	push_b(t_list **lst_a, t_list **lst_b, t_bench *bench)
 	head_a->next = head_b;
 	*lst_b = head_a;
 	*lst_a = temp;
-	// if (!bench->enabled)
-	ft_printf("%s\n", "pb");
+	if (!bench->enabled)
+		ft_printf("%s\n", "pb");
 	bench->pb++;
 	bench->operations++;
 }
+//ss ccascava
+// void	swap_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
+// {
+// 	swap(lst_a, 'a', bench);
+// 	swap(lst_b, 'b', bench);
+// 	bench->ss++;
+// 	bench->operations++;
+// }

@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:19:17 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/23 13:22:44 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 17:16:24 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 t_list	*init_a(char **argv);
 void	print_list(t_list *lst_a, t_list *lst_b);
-void	bubble_sort(t_list **a, t_list **b, t_bench *bench);
+void	simple_sort(t_list **a, t_list **b, t_bench *bench);
 int		is_sorted(t_list **lst);
 void	complex_sort(t_list **a, t_list **b, int size, t_bench *bench);
 void	med_sort(t_list **a, t_list **b, int size, t_bench *bench);

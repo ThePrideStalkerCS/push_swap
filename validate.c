@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 16:57:38 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/23 13:21:54 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 17:24:34 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	is_flag(char *s, t_bench *bench)
 	int		i;
 	char	*flags[5];
 
-	flags[0] = "--simple";
-	flags[1] = "--medium";
-	flags[2] = "--complex";
-	flags[3] = "--adaptive";
+	flags[0] = "--adaptive";
+	flags[1] = "--simple";
+	flags[2] = "--medium";
+	flags[3] = "--complex";
 	flags[4] = NULL;
 	i = 0;
 	while (flags[i])

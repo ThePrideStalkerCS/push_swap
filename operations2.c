@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:47:35 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/23 13:23:17 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/23 17:28:26 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,20 @@ void	rotate(t_list **lst, char c, t_bench *bench)
 	lstadd_back(lst, first);
 	if (c == 'a')
 	{
-		write(1, "ra\n", 4);
+		if (!bench->enabled)
+			write(1, "ra\n", 4);
 		bench->ra++;
 		bench->operations++;
 	}
 	else if (c == 'b')
 	{
-		write(1, "rb\n", 4);
+		if (!bench->enabled)
+			write(1, "rb\n", 4);
 		bench->rb++;
 		bench->operations++;
 	}
 	else
 		ft_printf("%s", "error! This stack doesnt exist\n");
-}
-
-//rr maratana
-void	rotate_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
-{
-	rotate(lst_a, 'a', bench);
-	rotate(lst_b, 'b', bench);
-	bench->rr++;
-	bench->operations++;
 }
 
 //rra & rrb maratana
@@ -61,25 +54,34 @@ void	rev_rotate(t_list **lst, char c, t_bench *bench)
 	lstadd_front(lst, l);
 	if (c == 'a')
 	{
-		write(1, "rra\n", 4);
+		if (!bench->enabled)
+			write(1, "rra\n", 4);
 		bench->rra++;
 		bench->operations++;
 	}
 	else if (c == 'b')
 	{
-		write(1, "rrb\n", 4);
+		if (!bench->enabled)
+			write(1, "rrb\n", 4);
 		bench->rrb++;
 		bench->operations++;
 	}
 	else
 		ft_printf("%s", "error! This stack doesnt exist\n");
 }
-
 //rrr maratana
-void	rev_rotate_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
-{
-	rev_rotate(lst_a, 'a', bench);
-	rev_rotate(lst_b, 'b', bench);
-	bench->rrr++;
-	bench->operations++;
-}
+// void	rev_rotate_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
+// {
+// 	rev_rotate(lst_a, 'a', bench);
+// 	rev_rotate(lst_b, 'b', bench);
+// 	bench->rrr++;
+// 	bench->operations++;
+// }
+//rr maratana
+// void	rotate_both(t_list **lst_a, t_list **lst_b, t_bench *bench)
+// {
+// 	rotate(lst_a, 'a', bench);
+// 	rotate(lst_b, 'b', bench);
+// 	bench->rr++;
+// 	bench->operations++;
+// }

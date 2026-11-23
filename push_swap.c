@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/23 15:16:06 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/23 17:33:42 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	is_sorted(t_list **a)
 	}
 	return (1);
 }
-void	bubble_sort(t_list **a, t_list **b, t_bench *bench)
+void	simple_sort(t_list **a, t_list **b, t_bench *bench)
 {
 	t_list	*temp;
 
@@ -142,6 +142,28 @@ void	bubble_sort(t_list **a, t_list **b, t_bench *bench)
 		}
 	}
 }
+void	adaptive_sort(t_list **a, t_list **b, t_bench *bench)
+{
+	if (bench->disorder < 0.20)
+		simple_sort(a, b, bench);
+	else if (bench->disorder < 0.50)
+		med_sort(a, b, lstsize(*a), bench);
+	else if (bench->disorder >= 0.50)
+		complex_sort(a, b, lstsize(*a), bench);
+	return ;
+}
+void	sort(t_list **a, t_list **b, t_bench *bench)
+{
+	if (bench->flag == 0)
+		adaptive_sort(a, b, bench);
+	else if (bench->flag == 1)
+		simple_sort(a, b, bench);
+	else if (bench->flag == 2)
+		med_sort(a, b, lstsize(*a), bench);
+	else if (bench->flag == 3)
+		complex_sort(a, b, lstsize(*a), bench);
+	return ;
+}
 
 int	main(int argc, char **argv)
 {
@@ -162,13 +184,10 @@ int	main(int argc, char **argv)
 	//---- END VALDATION -----
 	a = init_a(argv);
 	b = NULL;
-	printf("%f\n", compute_disorder(a));
 	bench.disorder = compute_disorder(a);
-	// complex_sort(&a, &b, lstsize(a));
-	// ft_printf("%d", *(int *)a->content);
 	// print_list(a, b);
-	bubble_sort(&a, &b, &bench);
-	print_list(a, b);
+	sort(&a,&b,&bench);
+	// print_list(a, b);
 	if (bench.enabled)
 		display_bench(bench);
 	lst_clear(&a);

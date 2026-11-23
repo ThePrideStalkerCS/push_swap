@@ -1,0 +1,6 @@
+- [x] cleanup operations
+- [x] make adaptive function
+- [ ] cleanup main
+- [ ] fix medium function with 5 arguments
+- [ ] NORMINETTE!
+- [ ] testing
