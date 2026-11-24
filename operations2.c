@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:47:35 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/24 15:01:41 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/24 17:15:06 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	rotate(t_list **lst, char c, t_bench *bench)
 	*lst = first->next;
 	first->next = NULL;
 	lstadd_back(lst, first);
-	if (!bench->enabled && bench->operations!=0)
-			write(1, "\n", 1);
+	// if (!bench->enabled && bench->operations!=0)
+	// 		write(1, "\n", 1);
 	if (c == 'a')
 	{
-		if (!bench->enabled)
-			write(1, "ra", 2);
+		// if (!bench->enabled)
+		write(1, "ra\n", 3);
 		bench->ra++;
 		bench->operations++;
 	}
 	else if (c == 'b')
 	{
-		if (!bench->enabled)
-			write(1, "rb", 2);
+		// if (!bench->enabled)
+		write(1, "rb\n", 3);
 		bench->rb++;
 		bench->operations++;
 	}
@@ -52,19 +52,19 @@ void	rev_rotate(t_list **lst, char c, t_bench *bench)
 		prev = prev->next;
 	prev->next = NULL;
 	lstadd_front(lst, l);
-	if (!bench->enabled && bench->operations!=0)
-			write(1, "\n", 1);
+	// if (!bench->enabled && bench->operations!=0)
+	// 		write(1, "\n", 1);
 	if (c == 'a')
 	{
-		if (!bench->enabled)
-			write(1, "rra", 3);
+		// if (!bench->enabled)
+		write(1, "rra\n", 4);
 		bench->rra++;
 		bench->operations++;
 	}
 	else if (c == 'b')
 	{
-		if (!bench->enabled)
-			write(1, "rrb", 3);
+		// if (!bench->enabled)
+		write(1, "rrb\n", 4);
 		bench->rrb++;
 		bench->operations++;
 	}

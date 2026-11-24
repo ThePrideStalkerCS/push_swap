@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/24 15:52:29 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/24 17:04:12 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	main(int argc, char **argv)
 		return (1);
 	bench.disorder = compute_disorder(bench.a);
 	sort(&bench);
-	print_list(bench.a, bench.b);
+	// print_list(bench.a, bench.b);
 	if (bench.enabled)
 		display_bench(bench);
 	lst_clear(&bench.a);
