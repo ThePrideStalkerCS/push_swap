@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:19:17 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/23 17:16:24 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/24 14:47:29 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "utils.h"
 
 t_list	*init_a(char **argv);
+double	compute_disorder(t_list *a);
 void	print_list(t_list *lst_a, t_list *lst_b);
 void	simple_sort(t_bench *bench);
 int		is_sorted(t_list *lst);

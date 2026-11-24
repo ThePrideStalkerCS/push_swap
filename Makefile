@@ -20,7 +20,10 @@ SRCS = push_swap.c \
 	   utils_bubble.c \
 	   utils_turk.c \
 	   utils_turk_1.c \
-	   bench.c
+	   bench.c \
+	   main_helper.c \
+	   putfd.c \
+	   utils_lst2.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

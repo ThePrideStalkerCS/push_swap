@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:14:11 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/23 15:14:05 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/24 14:54:26 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,8 @@ int					mystrcmp(char *s1, char *s2);
 int					myatoi(char *s);
 void				ft_putstr_fd(char *s, int fd);
 void				display_bench(t_bench b);
+void				putfloat(double f, int fd);
+int					ft_putnbr_fd(int n, int fd);
+void				ft_putstr_fd(char *s, int fd);
 
 #endif

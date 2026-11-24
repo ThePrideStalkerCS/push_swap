@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 15:02:13 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/23 17:27:25 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/24 14:43:03 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	swap(t_list **lst, char c, t_bench *bench)
 	*lst = temp;
 	if (c == 'a')
 	{
-		if(!bench->enabled)
+		if (!bench->enabled)
 			ft_printf("sa\n");
 		bench->sa++;
 	}
 	else if (c == 'b')
 	{
-		if(!bench->enabled)
+		if (!bench->enabled)
 			ft_printf("sb\n");
 		bench->sb++;
 	}
@@ -53,7 +53,7 @@ void	push_a(t_list **lst_a, t_list **lst_b, t_bench *bench)
 	head_b->next = head_a;
 	*lst_a = head_b;
 	*lst_b = temp;
-	if(!bench->enabled)
+	if (!bench->enabled)
 		ft_printf("%s\n", "pa");
 	bench->pa++;
 	bench->operations++;

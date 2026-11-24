@@ -6,24 +6,12 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:11:46 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/23 15:15:29 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/24 14:56:19 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include <stdlib.h>
-
-t_list	*lstnew(void *content)
-{
-	t_list	*list;
-
-	list = malloc(sizeof(t_list));
-	if (!list)
-		return (NULL);
-	list->content = content;
-	list->next = NULL;
-	return (list);
-}
 
 void	lstadd_back(t_list **lst, t_list *new)
 {

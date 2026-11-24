@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/23 17:33:42 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/24 14:48:46 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,91 +15,6 @@
 #include "utils.h"
 #include "validate.h"
 #include <stdio.h>
-
-//inits stack a by maratana
-t_list	*init_a(char **argv)
-{
-	t_list	*ret;
-	t_list	*new;
-	int		i;
-	int		*num;
-
-	i = 1;
-	if (!mystrcmp(argv[i], "--bench"))
-		i++;
-	if (is_flag(argv[i], NULL))
-		i++;
-	num = malloc(sizeof(4));
-	*num = myatoi(argv[i++]);
-	ret = lstnew(num);
-	while (argv[i])
-	{
-		if (is_flag(argv[i++], NULL))
-			continue ;
-		num = malloc(4);
-		*num = myatoi(argv[i - 1]);
-		new = lstnew(num);
-		lstadd_back(&ret, new);
-	}
-	return (ret);
-}
-int	get_list_val(int lst_i, t_list *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst && lst_i != i)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (*(int *)lst->content);
-}
-
-double	compute_disorder(t_list *a)
-{
-	float	mistakes;
-	float	pairs;
-	int		i;
-	int		j;
-
-	mistakes = 0;
-	pairs = 0;
-	i = 0;
-	while (i < lstsize(a))
-	{
-		j = i + 1;
-		while (j < lstsize(a))
-		{
-			pairs += 1;
-			if (get_list_val(i, a) > get_list_val(j, a))
-				mistakes += 1;
-			j++;
-		}
-		i++;
-	}
-	return (mistakes / pairs);
-}
-
-void	print_list(t_list *lst_a, t_list *lst_b)
-{
-	while (lst_a || lst_b)
-	{
-		if (lst_a)
-		{
-			ft_printf("%d ", *(int *)lst_a->content);
-			lst_a = lst_a->next;
-		}
-		if (lst_b)
-		{
-			ft_printf("%d", *(int *)lst_b->content);
-			lst_b = lst_b->next;
-		}
-		printf("\n");
-	}
-	ft_printf("_ _\n");
-	ft_printf("%c %c\n", 'a', 'b');
-}
 
 int	is_sorted(t_list *a)
 {
@@ -114,6 +29,7 @@ int	is_sorted(t_list *a)
 	}
 	return (1);
 }
+
 void	simple_sort(t_bench *bench)
 {
 	t_list	*temp;
@@ -142,6 +58,7 @@ void	simple_sort(t_bench *bench)
 		}
 	}
 }
+
 void	adaptive_sort(t_bench *bench)
 {
 	if (bench->disorder < 0.20)
@@ -151,6 +68,7 @@ void	adaptive_sort(t_bench *bench)
 	else
 		complex_sort(bench, lstsize(bench->a));
 }
+
 void	sort(t_bench *bench)
 {
 	if (bench->flag == 0)
@@ -162,6 +80,26 @@ void	sort(t_bench *bench)
 	else if (bench->flag == 3)
 		complex_sort(bench, lstsize(bench->a));
 }
+
+// void	print_list(t_list *lst_a, t_list *lst_b)
+// {
+// 	while (lst_a || lst_b)
+// 	{
+// 		if (lst_a)
+// 		{
+// 			ft_printf("%d ", *(int *)lst_a->content);
+// 			lst_a = lst_a->next;
+// 		}
+// 		if (lst_b)
+// 		{
+// 			ft_printf("%d", *(int *)lst_b->content);
+// 			lst_b = lst_b->next;
+// 		}
+// 		printf("\n");
+// 	}
+// 	ft_printf("_ _\n");
+// 	ft_printf("%c %c\n", 'a', 'b');
+// }
 
 int	main(int argc, char **argv)
 {
@@ -176,7 +114,7 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 	if (valid == 2 || valid == 0)
 		return (0);
-	bench.a=init_a(argv);
+	bench.a = init_a(argv);
 	bench.disorder = compute_disorder(bench.a);
 	sort(&bench);
 	if (bench.enabled)
@@ -184,6 +122,6 @@ int	main(int argc, char **argv)
 	lst_clear(&bench.a);
 }
 // print_list(bench.a, bench.b);
-	// simple_sort(&bench);
-	// med_sort(&bench,lstsize(bench.a));
-	// complex_sort(&bench,lstsize(bench.a));
+// simple_sort(&bench);
+// med_sort(&bench,lstsize(bench.a));
+// complex_sort(&bench,lstsize(bench.a));
