@@ -6,13 +6,16 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 16:57:38 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/24 15:05:56 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/24 15:47:43 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include <stdio.h>
 #include <limits.h>
+#include "push_swap.h"
+#include <limits.h>
+#include <stdlib.h>
 
 int	is_flag(char *s, t_bench *bench)
 {
@@ -24,6 +27,8 @@ int	is_flag(char *s, t_bench *bench)
 	flags[2] = "--medium";
 	flags[3] = "--complex";
 	flags[4] = NULL;
+	if (!s)
+		return (0);
 	i = 0;
 	while (flags[i])
 	{
@@ -38,24 +43,114 @@ int	is_flag(char *s, t_bench *bench)
 	return (0);
 }
 
-static int	validate_no_dupe(char **argv)
+static size_t	count_tokens(char **argv, int start)
 {
-	int	val;
+	size_t	count;
+	int		i;
+	int		j;
+
+	count = 0;
+	i = start;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			while (is_space(argv[i][j]))
+				j++;
+			if (argv[i][j])
+			{
+				count++;
+				while (argv[i][j] && !is_space(argv[i][j]))
+					j++;
+			}
+		}
+		i++;
+	}
+	return (count);
+}
+void	free_args(char **args)
+{
+	int	i;
+
+	if (!args)
+		return ;
+	i = 0;
+	while (args[i])
+		free(args[i++]);
+	free(args);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (src[i] && i < dstsize - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	while (src[i])
+		i++;
+	return (i);
+}
+char	**normalize_args(char **argv, int start)
+{
+	char	**result;
+	size_t	count;
+	size_t	k;
+	int		i;
+	int		j;
+	int		begin;
+
+	count = count_tokens(argv, start);
+	result = calloc(count + 1, sizeof(char *));
+	if (!result)
+		return (NULL);
+	k = 0;
+	i = start;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			while (is_space(argv[i][j]))
+				j++;
+			if (!argv[i][j])
+				break ;
+			begin = j;
+			while (argv[i][j] && !is_space(argv[i][j]))
+				j++;
+			result[k] = malloc(j - begin + 1);
+			if (!result[k])
+				return (free_args(result), NULL);
+			ft_strlcpy(result[k], argv[i] + begin, j - begin + 1);
+			k++;
+		}
+		i++;
+	}
+	return (result);
+}
+
+
+
+static int	validate_no_dupe(char **args)
+{
 	int	i;
 	int	j;
 
-	i = 1;
-	if (!mystrcmp(argv[i], "--bench"))
-		i++;
-	if (is_flag(argv[i], NULL))
-		i++;
-	while (argv[i])
+	i = 0;
+	while (args[i])
 	{
-		val = myatoi(argv[i]);
-		j = 1;
-		while (argv[i + j])
+		j = i + 1;
+		while (args[j])
 		{
-			if (val == myatoi(argv[i + j]))
+			if (myatoi(args[i]) == myatoi(args[j]))
 				return (0);
 			j++;
 		}
@@ -88,6 +183,7 @@ static int	is_overflow(long num, int digit, int sign)
 		return (1);
 	return (0);
 }
+
 static int	is_in_range(char *str)
 {
 	int		i;
@@ -110,31 +206,53 @@ static int	is_in_range(char *str)
 	return (1);
 }
 
-int	validate_input(char **argv, t_bench *bench)
+int	validate_normalized(char **args)
 {
 	int	i;
-	int	has_num;
 
-	has_num = 0;
-	i = 1;
-	if (!mystrcmp(argv[i], "--bench"))
+	if (!args[0])
+		return (2);
+	i = 0;
+	while (args[i])
 	{
-		bench->enabled = 1;
+		if (!is_valid_num(args[i]) || !is_in_range(args[i]))
+			return (0);
+		i++;
+	}
+	if (!validate_no_dupe(args))
+		return (0);
+	return (1);
+}
+
+int	validate_input(char **argv, t_bench *bench)
+{
+	int		i;
+	int		j;
+	char	**args;
+
+	i = 1;
+	if (argv[i] && !mystrcmp(argv[i], "--bench"))
+	{
+		if (bench)
+			bench->enabled = 1;
 		i++;
 	}
 	if (is_flag(argv[i], bench))
 		i++;
-	while (argv[i])
-	{
-		if (!is_valid_num(argv[i]) || !is_in_range(argv[i]))
-			return (0);
-		else
-			has_num = 1;
-		i++;
-	}
-	if (!has_num)
-		return (2);
-	if (!validate_no_dupe(argv))
+	args = normalize_args(argv, i);
+	if (!args)
 		return (0);
+	if (!args[0])
+		return (free_args(args), 2);
+	j = 0;
+	while (args[j])
+	{
+		if (!is_valid_num(args[j]) || !is_in_range(args[j]))
+			return (free_args(args), 0);
+		j++;
+	}
+	if (!validate_no_dupe(args))
+		return (free_args(args), 0);
+	free_args(args);
 	return (1);
 }

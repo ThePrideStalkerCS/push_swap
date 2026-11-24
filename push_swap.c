@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/24 14:48:46 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/24 15:52:29 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,45 +81,66 @@ void	sort(t_bench *bench)
 		complex_sort(bench, lstsize(bench->a));
 }
 
-// void	print_list(t_list *lst_a, t_list *lst_b)
-// {
-// 	while (lst_a || lst_b)
-// 	{
-// 		if (lst_a)
-// 		{
-// 			ft_printf("%d ", *(int *)lst_a->content);
-// 			lst_a = lst_a->next;
-// 		}
-// 		if (lst_b)
-// 		{
-// 			ft_printf("%d", *(int *)lst_b->content);
-// 			lst_b = lst_b->next;
-// 		}
-// 		printf("\n");
-// 	}
-// 	ft_printf("_ _\n");
-// 	ft_printf("%c %c\n", 'a', 'b');
-// }
+void	print_list(t_list *lst_a, t_list *lst_b)
+{
+	while (lst_a || lst_b)
+	{
+		if (lst_a)
+		{
+			ft_printf("%d ", *(int *)lst_a->content);
+			lst_a = lst_a->next;
+		}
+		if (lst_b)
+		{
+			ft_printf("%d", *(int *)lst_b->content);
+			lst_b = lst_b->next;
+		}
+		printf("\n");
+	}
+	ft_printf("_ _\n");
+	ft_printf("%c %c\n", 'a', 'b');
+}
+
+
+
 
 int	main(int argc, char **argv)
 {
 	int		valid;
+	int		start;
+	char	**args;
 	t_bench	bench;
 
 	bench = (t_bench){0};
 	if (argc <= 1)
 		return (0);
-	valid = validate_input(argv, &bench);
+	start = 1;
+	if (!mystrcmp(argv[start], "--bench"))
+	{
+		bench.enabled = 1;
+		start++;
+	}
+	if (is_flag(argv[start], &bench))
+		start++;
+	args = normalize_args(argv, start);
+	if (!args)
+		return (1);
+	valid = validate_normalized(args);
 	if (valid == 0)
 		write(2, "Error\n", 6);
-	if (valid == 2 || valid == 0)
-		return (0);
-	bench.a = init_a(argv);
+	if (valid != 1)
+		return (free_args(args), 0);
+	bench.a = init_a(args);
+	free_args(args);
+	if (!bench.a)
+		return (1);
 	bench.disorder = compute_disorder(bench.a);
 	sort(&bench);
+	print_list(bench.a, bench.b);
 	if (bench.enabled)
 		display_bench(bench);
 	lst_clear(&bench.a);
+	return (0);
 }
 // print_list(bench.a, bench.b);
 // simple_sort(&bench);

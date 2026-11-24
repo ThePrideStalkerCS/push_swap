@@ -6,12 +6,34 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/24 14:46:12 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/24 14:55:47 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/24 15:43:39 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "validate.h"
+
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	if (!lst || !del)
+		return ;
+	del(lst->content);
+	free(lst);
+}
+
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*temp;
+
+	if (!lst || !del)
+		return ;
+	while ((*lst) != NULL)
+	{
+		temp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = temp;
+	}
+}
 
 t_list	*init_a(char **argv)
 {
@@ -20,22 +42,19 @@ t_list	*init_a(char **argv)
 	int		i;
 	int		*num;
 
-	i = 1;
-	if (!mystrcmp(argv[i], "--bench"))
-		i++;
-	if (is_flag(argv[i], NULL))
-		i++;
-	num = malloc(sizeof(4));
-	*num = myatoi(argv[i++]);
-	ret = lstnew(num);
+	i = 0;
+	ret = NULL;
 	while (argv[i])
 	{
-		if (is_flag(argv[i++], NULL))
-			continue ;
-		num = malloc(4);
-		*num = myatoi(argv[i - 1]);
+		num = malloc(sizeof(int));
+		if (!num)
+			return (ft_lstclear(&ret, free), NULL);
+		*num = myatoi(argv[i]);
 		new = lstnew(num);
+		if (!new)
+			return (free(num), ft_lstclear(&ret, free), NULL);
 		lstadd_back(&ret, new);
+		i++;
 	}
 	return (ret);
 }
