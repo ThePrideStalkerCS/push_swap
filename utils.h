@@ -13,9 +13,20 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+typedef struct s_list
+{
+	void			*content;
+	int				rank;
+	int				cost;
+	struct s_list	*target;
+	struct s_list	*next;
+}					t_list;
+
 typedef struct s_bench
 {
 	int				enabled;
+	t_list			*a;
+	t_list			*b;
 	double			disorder;
 	int				flag;
 	int				operations;
@@ -33,14 +44,7 @@ typedef struct s_bench
 }					t_bench;
 
 // ---LIST UTILS---
-typedef struct s_list
-{
-	void			*content;
-	int				rank;
-	int				cost;
-	struct s_list	*target;
-	struct s_list	*next;
-}					t_list;
+
 void				rotate(t_list **lst, char c, t_bench *bench);
 void				rotate_both(t_list **lst_a, t_list **lst_b, t_bench *bench);
 void				rev_rotate(t_list **lst, char c, t_bench *bench);

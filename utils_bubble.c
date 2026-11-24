@@ -13,12 +13,12 @@
 #include "push_swap.h"
 #include "utils.h"
 
-void	assign_rank(t_list **a, int *heap, int size)
+static void	assign_rank(t_bench *bench, int *heap, int size)
 {
 	t_list	*temp;
 	int		i;
 
-	temp = *a;
+	temp = bench->a;
 	while (temp)
 	{
 		i = 0;
@@ -35,7 +35,7 @@ void	assign_rank(t_list **a, int *heap, int size)
 	}
 }
 
-int	*fill_array(t_list **a, int size)
+static int	*fill_array(t_bench *bench, int size)
 {
 	t_list	*temp;
 	int		*heap;
@@ -43,8 +43,8 @@ int	*fill_array(t_list **a, int size)
 
 	heap = malloc(size * sizeof(int));
 	if (!heap)
-		return (0);
-	temp = *a;
+		return (NULL);
+	temp = bench->a;
 	i = 0;
 	while (temp && i < size)
 	{
@@ -55,7 +55,7 @@ int	*fill_array(t_list **a, int size)
 	return (heap);
 }
 
-void	swap_bubble(int *heap, int j)
+static void	swap_bubble(int *heap, int j)
 {
 	int	temporary;
 
@@ -64,15 +64,15 @@ void	swap_bubble(int *heap, int j)
 	heap[j + 1] = temporary;
 }
 
-int	*bubble(t_list **a, int size)
+int	*bubble(t_bench *bench, int size)
 {
 	int		*heap;
 	int		i;
 	int		j;
 
-	heap = fill_array(a, size);
+	heap = fill_array(bench, size);
 	if (!heap)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (i < size)
 	{
@@ -80,13 +80,11 @@ int	*bubble(t_list **a, int size)
 		while (j < size - i - 1)
 		{
 			if (heap[j] > heap[j + 1])
-			{
 				swap_bubble(heap, j);
-			}
 			j++;
 		}
 		i++;
 	}
-	assign_rank(a, heap, size);
+	assign_rank(bench, heap, size);
 	return (heap);
 }

@@ -101,12 +101,12 @@ void	print_list(t_list *lst_a, t_list *lst_b)
 	ft_printf("%c %c\n", 'a', 'b');
 }
 
-int	is_sorted(t_list **a)
+int	is_sorted(t_list *a)
 {
 	t_list	*temp;
 
-	temp = *a;
-	while (temp->next)
+	temp = a;
+	while (temp && temp->next)
 	{
 		if (*(int *)temp->content > *(int *)temp->next->content)
 			return (0);
@@ -114,66 +114,61 @@ int	is_sorted(t_list **a)
 	}
 	return (1);
 }
-void	simple_sort(t_list **a, t_list **b, t_bench *bench)
+void	simple_sort(t_bench *bench)
 {
 	t_list	*temp;
 
-	while (is_sorted(a) == 0)
+	while (is_sorted(bench->a) == 0)
 	{
-		while (*a)
+		while (bench->a)
 		{
-			if ((*a)->next)
+			if (bench->a->next)
 			{
-				temp = (*a)->next;
-				if (*(int *)(*a)->content > *(int *)temp->content)
-					swap(a, 'a', bench);
+				temp = bench->a->next;
+				if (*(int *)bench->a->content > *(int *)temp->content)
+					swap(&bench->a, 'a', bench);
 			}
-			push_b(a, b, bench);
+			push_b(&bench->a, &bench->b, bench);
 		}
-		while (*b)
+		while (bench->b)
 		{
-			if ((*b)->next)
+			if (bench->b->next)
 			{
-				temp = (*b)->next;
-				if (*(int *)(*b)->content < *(int *)temp->content)
-					swap(b, 'b', bench);
+				temp = bench->b->next;
+				if (*(int *)bench->b->content < *(int *)temp->content)
+					swap(&bench->b, 'b', bench);
 			}
-			push_a(a, b, bench);
+			push_a(&bench->a, &bench->b, bench);
 		}
 	}
 }
-void	adaptive_sort(t_list **a, t_list **b, t_bench *bench)
+void	adaptive_sort(t_bench *bench)
 {
 	if (bench->disorder < 0.20)
-		simple_sort(a, b, bench);
+		simple_sort(bench);
 	else if (bench->disorder < 0.50)
-		med_sort(a, b, lstsize(*a), bench);
-	else if (bench->disorder >= 0.50)
-		complex_sort(a, b, lstsize(*a), bench);
-	return ;
+		med_sort(bench, lstsize(bench->a));
+	else
+		complex_sort(bench, lstsize(bench->a));
 }
-void	sort(t_list **a, t_list **b, t_bench *bench)
+void	sort(t_bench *bench)
 {
 	if (bench->flag == 0)
-		adaptive_sort(a, b, bench);
+		adaptive_sort(bench);
 	else if (bench->flag == 1)
-		simple_sort(a, b, bench);
+		simple_sort(bench);
 	else if (bench->flag == 2)
-		med_sort(a, b, lstsize(*a), bench);
+		med_sort(bench, lstsize(bench->a));
 	else if (bench->flag == 3)
-		complex_sort(a, b, lstsize(*a), bench);
-	return ;
+		complex_sort(bench, lstsize(bench->a));
 }
 
 int	main(int argc, char **argv)
 {
-	t_list	*a;
-	t_list	*b;
 	int		valid;
 	t_bench	bench;
 
 	bench = (t_bench){0};
-	//---- VALDATION -----
 	if (argc <= 1)
 		return (0);
 	valid = validate_input(argv, &bench);
@@ -181,14 +176,14 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 	if (valid == 2 || valid == 0)
 		return (0);
-	//---- END VALDATION -----
-	a = init_a(argv);
-	b = NULL;
-	bench.disorder = compute_disorder(a);
-	// print_list(a, b);
-	sort(&a,&b,&bench);
-	// print_list(a, b);
+	bench.a=init_a(argv);
+	bench.disorder = compute_disorder(bench.a);
+	sort(&bench);
 	if (bench.enabled)
 		display_bench(bench);
-	lst_clear(&a);
+	lst_clear(&bench.a);
 }
+// print_list(bench.a, bench.b);
+	// simple_sort(&bench);
+	// med_sort(&bench,lstsize(bench.a));
+	// complex_sort(&bench,lstsize(bench.a));

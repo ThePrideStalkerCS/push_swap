@@ -1,0 +1,33 @@
+$ ./push_swap.exe --bench 3 2 1 6 5
+[bench] disorder: 40.00%
+[bench] strategy: Simple / O(nΓü┐)
+[bench] total_ops: 13
+[bench] sa: 0 sb: 0 ss: 0 pa: 4 pb: 4
+[bench] ra: 2 rb: 2 rr: 0 rra: 0 rrb: 1 rrr: 0
+
+
+marto@Workstation UCRT64 /c/Users/marto/coding/42/push_swap
+$ ./push_swap.exe --bench --simple 3 2 1 6 5
+[bench] disorder: 40.00%
+[bench] strategy: Medium / O(nΓêÜn)
+[bench] total_ops: 14
+[bench] sa: 3 sb: 1 ss: 0 pa: 5 pb: 5
+[bench] ra: 0 rb: 0 rr: 0 rra: 0 rrb: 0 rrr: 0
+
+
+marto@Workstation UCRT64 /c/Users/marto/coding/42/push_swap
+$ ./push_swap.exe --bench --medium 3 2 1 6 5
+[bench] disorder: 40.00%
+[bench] strategy: Complex / O(n log n)
+[bench] total_ops: 13
+[bench] sa: 0 sb: 0 ss: 0 pa: 4 pb: 4
+[bench] ra: 2 rb: 2 rr: 0 rra: 0 rrb: 1 rrr: 0
+
+
+marto@Workstation UCRT64 /c/Users/marto/coding/42/push_swap
+$ ./push_swap.exe --bench --complex 3 2 1 6 5
+[bench] disorder: 40.00%
+[bench] strategy: Adaptive / O(nΓêÜn)
+[bench] total_ops: 10
+[bench] sa: 1 sb: 0 ss: 0 pa: 2 pb: 2
+[bench] ra: 2 rb: 0 rr: 0 rra: 3 rrb: 0 rrr: 0

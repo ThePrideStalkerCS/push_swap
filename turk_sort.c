@@ -13,13 +13,13 @@
 #include "push_swap.h"
 #include "utils.h"
 
-t_list	*find_cheapest(t_list **b)
+t_list	*find_cheapest(t_bench *bench)
 {
 	t_list	*cheapest;
 	t_list	*temp_b;
 
-	temp_b = *b;
-	cheapest = *b;
+	temp_b = bench->b;
+	cheapest = bench->b;
 	while (temp_b)
 	{
 		if (temp_b->cost < cheapest->cost)
@@ -29,38 +29,38 @@ t_list	*find_cheapest(t_list **b)
 	return (cheapest);
 }
 
-void	move_cheapest(t_list **a, t_list **b, t_list *cheapest, t_bench *bench)
+void	move_cheapest(t_bench *bench, t_list *cheapest)
 {
 	int	pos_cheapest;
 	int	pos_target;
 
-	pos_cheapest = get_position(b, cheapest);
-	pos_target = get_position(a, cheapest->target);
-	while (cheapest != *b)
+	pos_cheapest = get_position(&bench->b, cheapest);
+	pos_target = get_position(&bench->a, cheapest->target);
+	while (cheapest != bench->b)
 	{
-		if (pos_cheapest <= lstsize(*b) / 2)
-			rotate(b, 'b', bench);
+		if (pos_cheapest <= lstsize(bench->b) / 2)
+			rotate(&bench->b, 'b', bench);
 		else
-			rev_rotate(b, 'b', bench);
+			rev_rotate(&bench->b, 'b', bench);
 	}
-	while (cheapest->target != *a)
+	while (cheapest->target != bench->a)
 	{
-		if (pos_target <= lstsize(*a) / 2)
-			rotate(a, 'a', bench);
+		if (pos_target <= lstsize(bench->a) / 2)
+			rotate(&bench->a, 'a', bench);
 		else
-			rev_rotate(a, 'a', bench);
+			rev_rotate(&bench->a, 'a', bench);
 	}
 }
 
-t_list	*get_smallest(t_list **a)
+t_list	*get_smallest(t_bench *bench)
 {
 	t_list	*temp;
 	t_list	*smallest;
 	int		smallest_rank;
 
-	temp = *a;
-	smallest = *a;
-	smallest_rank = (*a)->rank;
+	temp = bench->a;
+	smallest = bench->a;
+	smallest_rank = bench->a->rank;
 	while (temp)
 	{
 		if (temp->rank < smallest_rank)
@@ -73,12 +73,12 @@ t_list	*get_smallest(t_list **a)
 	return (smallest);
 }
 
-void	move_smallest(t_list **a, t_list *smallest, t_bench *bench)
+void	move_smallest(t_bench *bench, t_list *smallest)
 {
 	int		position;
 	t_list	*temp;
 
-	temp = *a;
+	temp = bench->a;
 	position = 0;
 	while (temp)
 	{
@@ -87,36 +87,36 @@ void	move_smallest(t_list **a, t_list *smallest, t_bench *bench)
 		position++;
 		temp = temp->next;
 	}
-	while (smallest != *a)
+	while (smallest != bench->a)
 	{
-		if (position <= lstsize(*a) / 2)
-			rotate(a, 'a', bench);
+		if (position <= lstsize(bench->a) / 2)
+			rotate(&bench->a, 'a', bench);
 		else
-			rev_rotate(a, 'a', bench);
+			rev_rotate(&bench->a, 'a', bench);
 	}
 }
 
-void	complex_sort(t_list **a, t_list **b, int size, t_bench *bench)
+void	complex_sort(t_bench *bench, int size)
 {
 	int		*heap;
 	t_list	*cheapest;
 	t_list	*smallest;
 
-	heap = bubble(a, size);
+	heap = bubble(bench, size);
 	if (heap == NULL)
 		return ;
-	while (lstsize(*a) > 3)
-		push_b(a, b, bench);
-	sort_three_in_a(a, bench);
-	while (*b)
+	while (lstsize(bench->a) > 3)
+		push_b(&bench->a, &bench->b, bench);
+	sort_three_in_a(bench);
+	while (bench->b)
 	{
-		assign_target(a, b);
-		find_cost(a, b);
-		cheapest = find_cheapest(b);
-		move_cheapest(a, b, cheapest, bench);
-		push_a(a, b, bench);
+		assign_target(bench);
+		find_cost(bench);
+		cheapest = find_cheapest(bench);
+		move_cheapest(bench, cheapest);
+		push_a(&bench->a, &bench->b, bench);
 	}
-	smallest = get_smallest(a);
-	move_smallest(a, smallest, bench);
+	smallest = get_smallest(bench);
+	move_smallest(bench, smallest);
 	free(heap);
 }

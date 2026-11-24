@@ -102,13 +102,13 @@ static void	printoperations(t_bench b)
 
 static void	putstrategy(t_bench bench)
 {
-	if (bench.flag == 0)
+	if (bench.flag == 1)
 		ft_putstr_fd("Simple / O(nⁿ)", 2);
-	else if (bench.flag == 1)
-		ft_putstr_fd("Medium / O(n√n)", 2);
 	else if (bench.flag == 2)
-		ft_putstr_fd("Complex / O(n log n)", 2);
+		ft_putstr_fd("Medium / O(n√n)", 2);
 	else if (bench.flag == 3)
+		ft_putstr_fd("Complex / O(n log n)", 2);
+	else if (bench.flag == 0)
 	{
 		ft_putstr_fd("Adaptive / ", 2);
 		if (bench.disorder < 0.20)

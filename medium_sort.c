@@ -13,21 +13,21 @@
 #include "push_swap.h"
 #include "utils.h"
 
-void	search_and_push(t_list **a, t_list **b, int start, int end,t_bench *bench)
+void	search_and_push(t_bench *bench, int start, int end)
 {
 	t_list	*temp;
 	t_list	*mover;
 
-	temp = *a;
+	temp = bench->a;
 	while (temp)
 	{
 		if (temp->rank >= start && temp->rank <= end)
 		{
 			mover = temp;
-			top_up(a, mover, 'a', bench);
-			push_b(a, b, bench);
-			organise_b(b, start, end, bench);
-			temp = *a;
+			top_up(&bench->a, mover, 'a', bench);
+			push_b(&bench->a, &bench->b, bench);
+			organise_b(&bench->b, start, end, bench);
+			temp = bench->a;
 			continue ;
 		}
 		temp = temp->next;
@@ -55,19 +55,19 @@ t_list	*find_max(t_list **b)
 	return (max);
 }
 
-void	clear_b(t_list **a, t_list **b, t_bench *bench)
+void	clear_b(t_bench *bench)
 {
 	t_list	*max_b;
 
-	while (*b)
+	while (bench->b)
 	{
-		max_b = find_max(b);
-		top_up(b, max_b, 'b', bench);
-		push_a(a, b, bench);
+		max_b = find_max(&bench->b);
+		top_up(&bench->b, max_b, 'b', bench);
+		push_a(&bench->a, &bench->b, bench);
 	}
 }
 
-void	med_sort(t_list **a, t_list **b, int size, t_bench *bench)
+void	med_sort(t_bench *bench, int size)
 {
 	int	*heap;
 	int	number_of_buckets;
@@ -75,7 +75,7 @@ void	med_sort(t_list **a, t_list **b, int size, t_bench *bench)
 	int	start;
 	int	end;
 
-	heap = bubble(a, size);
+	heap = bubble(bench, size);
 	if (!heap)
 		return ;
 	number_of_buckets = create_buckets(size);
@@ -86,10 +86,10 @@ void	med_sort(t_list **a, t_list **b, int size, t_bench *bench)
 	end = bucket_len - 1;
 	while (start < size - 1)
 	{
-		search_and_push(a, b, start, end, bench);
+		search_and_push(bench, start, end);
 		start += bucket_len;
 		end += bucket_len;
 	}
-	clear_b(a, b, bench);
+	clear_b(bench);
 	free(heap);
 }
