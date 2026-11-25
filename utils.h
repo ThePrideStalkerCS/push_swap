@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:14:11 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/24 14:54:26 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/25 20:00:43 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void				display_bench(t_bench b);
 void				putfloat(double f, int fd);
 int					ft_putnbr_fd(int n, int fd);
 void				ft_putstr_fd(char *s, int fd);
+int					ft_strlcpy(char *dst, const char *src, int dstsize);
 
 #endif

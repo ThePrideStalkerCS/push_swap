@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/25 12:48:00 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 19:26:15 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "push_swap.h"
 #include "utils.h"
 #include "validate.h"
-#include <stdio.h>
 
 int	is_sorted(t_list *a)
 {
@@ -81,29 +80,8 @@ void	sort(t_bench *bench)
 		complex_sort(bench, lstsize(bench->a));
 }
 
-void	print_list(t_list *lst_a, t_list *lst_b)
-{
-	while (lst_a || lst_b)
-	{
-		if (lst_a)
-		{
-			ft_printf("%d ", *(int *)lst_a->content);
-			lst_a = lst_a->next;
-		}
-		if (lst_b)
-		{
-			ft_printf("%d", *(int *)lst_b->content);
-			lst_b = lst_b->next;
-		}
-		printf("\n");
-	}
-	ft_printf("_ _\n");
-	ft_printf("%c %c\n", 'a', 'b');
-}
-
 int	main(int argc, char **argv)
 {
-	int		valid;
 	int		start;
 	char	**args;
 	t_bench	bench;
@@ -111,21 +89,13 @@ int	main(int argc, char **argv)
 	bench = (t_bench){0};
 	if (argc <= 1)
 		return (0);
-	start = 1;
-	if (!mystrcmp(argv[start], "--bench"))
-	{
-		bench.enabled = 1;
-		start++;
-	}
-	if (is_flag(argv[start], &bench))
-		start++;
+	start = get_start(argv, &bench);
 	args = normalize_args(argv, start);
 	if (!args)
 		return (1);
-	valid = validate_normalized(args);
-	if (valid == 0)
+	if (validate_normalized(args) == 0)
 		write(2, "Error\n", 6);
-	if (valid != 1)
+	if (validate_normalized(args) != 1)
 		return (free_args(args), 0);
 	bench.a = init_a(args);
 	free_args(args);
@@ -133,7 +103,6 @@ int	main(int argc, char **argv)
 		return (1);
 	bench.disorder = compute_disorder(bench.a);
 	sort(&bench);
-	// print_list(bench.a, bench.b);
 	if (bench.enabled)
 		display_bench(bench);
 	lst_clear(&bench.a);

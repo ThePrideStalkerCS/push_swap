@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 14:51:49 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/25 12:38:59 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 19:27:29 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	move_smallest(t_bench *bench, t_list *smallest)
 void	complex_sort(t_bench *bench, int size)
 {
 	int		*heap;
-	t_list	*cheapest;
 	t_list	*smallest;
 
 	heap = bubble(bench, size);
