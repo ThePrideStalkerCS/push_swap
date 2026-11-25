@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 15:02:13 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/24 17:14:37 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/25 14:55:13 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,13 @@ void	swap(t_list **lst, char c, t_bench *bench)
 	(*lst)->next = temp->next;
 	temp->next = *lst;
 	*lst = temp;
-	// if (!bench->enabled && bench->operations!=0)
-	// 		write(1, "\n", 1);
 	if (c == 'a')
 	{
-		// if (!bench->enabled)
 		ft_printf("sa\n");
 		bench->sa++;
 	}
 	else if (c == 'b')
 	{
-		// if (!bench->enabled)
 		ft_printf("sb\n");
 		bench->sb++;
 	}
@@ -55,9 +51,6 @@ void	push_a(t_list **lst_a, t_list **lst_b, t_bench *bench)
 	head_b->next = head_a;
 	*lst_a = head_b;
 	*lst_b = temp;
-	// if (!bench->enabled && bench->operations!=0)
-			// write(1, "\n", 1);
-	// if (!bench->enabled)
 	ft_printf("pa\n");
 	bench->pa++;
 	bench->operations++;
@@ -77,9 +70,6 @@ void	push_b(t_list **lst_a, t_list **lst_b, t_bench *bench)
 	head_a->next = head_b;
 	*lst_b = head_a;
 	*lst_a = temp;
-	// if (!bench->enabled && bench->operations!=0)
-			// write(1, "\n", 1);
-	// if (!bench->enabled)
 	ft_printf("pb\n");
 	bench->pb++;
 	bench->operations++;
