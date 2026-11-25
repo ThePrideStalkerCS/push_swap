@@ -6,29 +6,60 @@
 /*   By: ccascava <ccascava@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 11:47:10 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/16 11:48:16 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 10:08:41 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "utils.h"
 
-t_list	*get_small(t_list *temp_a, int small_rank, t_list *smallest)
+void	sort_five(t_bench *bench)
 {
-	if (temp_a->rank < small_rank)
-	{
-		small_rank = temp_a->rank;
-		smallest = temp_a;
-	}
-	return (smallest);
-}
+	t_list	*temp;
+	t_list	*smallest;
+	int		small_index;
+	int		i;
+	int		rotations;
+	int		count;
 
-t_list	*get_target(t_list *temp_a, t_list *temp_b, t_list *target)
-{
-	if (temp_b->rank < temp_a->rank)
+	count = 0;
+	while (count < 2)
 	{
-		if (target == NULL || temp_a->rank < target->rank)
-			target = temp_a;
+		smallest = bench->a;
+		temp = bench->a;
+		small_index = 0;
+		i = 0;
+		while (temp)
+		{
+			if (temp->rank < smallest->rank)
+			{
+				smallest = temp;
+				small_index = i;
+			}
+			i++;
+			temp = temp->next;
+		}
+		if (small_index <= lstsize(bench->a) / 2)
+			rotations = small_index;
+		else
+			rotations = lstsize(bench->a) - small_index;
+		while (rotations > 0)
+		{
+			if (small_index <= lstsize(bench->a) / 2)
+			{
+				rotate(&bench->a, 'a', bench);
+				rotations--;
+			}
+			else
+			{
+				rev_rotate(&bench->a, 'a', bench);
+				rotations--;
+			}
+		}
+		push_b(&bench->a, &bench->b, bench);
+		count++;
 	}
-	return (target);
+	sort_three_in_a(bench);
+	push_a(&bench->a, &bench->b, bench);
+	push_a(&bench->a, &bench->b, bench);
 }

@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 14:51:49 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/24 17:40:17 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 10:12:14 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,18 +105,23 @@ void	complex_sort(t_bench *bench, int size)
 	heap = bubble(bench, size);
 	if (heap == NULL)
 		return ;
-	while (lstsize(bench->a) > 3)
-		push_b(&bench->a, &bench->b, bench);
-	sort_three_in_a(bench);
-	while (bench->b)
+	if (size == 5)
+		sort_five(bench);
+	else
 	{
-		assign_target(bench);
-		find_cost(bench);
-		cheapest = find_cheapest(bench);
-		move_cheapest(bench, cheapest);
-		push_a(&bench->a, &bench->b, bench);
+		while (lstsize(bench->a) > 3)
+			push_b(&bench->a, &bench->b, bench);
+		sort_three_in_a(bench);
+		while (bench->b)
+		{
+			assign_target(bench);
+			find_cost(bench);
+			cheapest = find_cheapest(bench);
+			move_cheapest(bench, cheapest);
+			push_a(&bench->a, &bench->b, bench);
+		}
+		smallest = get_smallest(bench);
+		move_smallest(bench, smallest);
 	}
-	smallest = get_smallest(bench);
-	move_smallest(bench, smallest);
 	free(heap);
 }

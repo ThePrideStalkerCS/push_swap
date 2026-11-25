@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 13:00:08 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/24 17:40:02 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 10:11:10 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,25 @@ void	med_sort(t_bench *bench, int size)
 	heap = bubble(bench, size);
 	if (!heap)
 		return ;
-	number_of_buckets = create_buckets(size);
-	bucket_len = size / number_of_buckets;
-	if (size % number_of_buckets != 0)
-		bucket_len++;
-	start = 0;
-	end = bucket_len - 1;
-	while (start < size - 1)
+	if (size == 3)
+		sort_three_in_a(bench);
+	else if (size == 5)
+		sort_five(bench);
+	else
 	{
-		search_and_push(bench, start, end);
-		start += bucket_len;
-		end += bucket_len;
+		number_of_buckets = create_buckets(size);
+		bucket_len = size / number_of_buckets;
+		if (size % number_of_buckets != 0)
+			bucket_len++;
+		start = 0;
+		end = bucket_len - 1;
+		while (start < size - 1)
+		{
+			search_and_push(bench, start, end);
+			start += bucket_len;
+			end += bucket_len;
+		}
+		clear_b(bench);
 	}
-	clear_b(bench);
 	free(heap);
 }
