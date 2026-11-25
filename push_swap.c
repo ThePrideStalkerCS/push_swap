@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:17:14 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/24 17:39:46 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 12:48:00 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,6 @@ void	print_list(t_list *lst_a, t_list *lst_b)
 	ft_printf("_ _\n");
 	ft_printf("%c %c\n", 'a', 'b');
 }
-
-
-
 
 int	main(int argc, char **argv)
 {

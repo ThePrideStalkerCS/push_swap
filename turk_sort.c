@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 14:51:49 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/25 10:12:14 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 12:38:59 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,7 @@ void	complex_sort(t_bench *bench, int size)
 		sort_three_in_a(bench);
 		while (bench->b)
 		{
-			assign_target(bench);
-			find_cost(bench);
-			cheapest = find_cheapest(bench);
-			move_cheapest(bench, cheapest);
-			push_a(&bench->a, &bench->b, bench);
+			inner_work(bench);
 		}
 		smallest = get_smallest(bench);
 		move_smallest(bench, smallest);

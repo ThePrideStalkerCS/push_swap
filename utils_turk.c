@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/16 10:28:13 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/24 17:22:58 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 12:14:02 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,7 @@ void	assign_target(t_bench *bench)
 		temp_a = bench->a;
 		smallest = bench->a;
 		target = NULL;
-		while (temp_a)
-		{
-			if (temp_a->rank < smallest->rank)
-				smallest = temp_a;
-			if (temp_b->rank < temp_a->rank)
-			{
-				if (!target || temp_a->rank < target->rank)
-					target = temp_a;
-			}
-			temp_a = temp_a->next;
-		}
-		if (target)
-			temp_b->target = target;
-		else
-			temp_b->target = smallest;
+		temp_b->target = t(temp_a, temp_b, smallest, target);
 		temp_b = temp_b->next;
 	}
 }

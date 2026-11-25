@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 12:19:17 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/25 10:09:22 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 12:38:13 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,9 @@ void	sort_three_in_a(t_bench *bench);
 void	assign_target(t_bench *bench);
 void	find_cost(t_bench *bench);
 void	sort_five(t_bench *bench);
+t_list	*t(t_list *temp_a, t_list *temp_b, t_list *smallest, t_list *target);
+void	inner_work(t_bench *bench);
+void	move_cheapest(t_bench *bench, t_list *cheapest);
+t_list	*find_cheapest(t_bench *bench);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 13:00:08 by ccascava          #+#    #+#             */
-/*   Updated: 2026/11/25 10:11:10 by ccascava         ###   ########.fr       */
+/*   Updated: 2026/11/25 12:46:17 by ccascava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,31 @@ void	clear_b(t_bench *bench)
 	}
 }
 
-void	med_sort(t_bench *bench, int size)
+void	actual_sort(t_bench *bench, int size)
 {
-	int	*heap;
 	int	number_of_buckets;
 	int	bucket_len;
 	int	start;
 	int	end;
+
+	number_of_buckets = create_buckets(size);
+	bucket_len = size / number_of_buckets;
+	if (size % number_of_buckets != 0)
+		bucket_len++;
+	start = 0;
+	end = bucket_len - 1;
+	while (start < size - 1)
+	{
+		search_and_push(bench, start, end);
+		start += bucket_len;
+		end += bucket_len;
+	}
+	clear_b(bench);
+}
+
+void	med_sort(t_bench *bench, int size)
+{
+	int	*heap;
 
 	heap = bubble(bench, size);
 	if (!heap)
@@ -84,19 +102,7 @@ void	med_sort(t_bench *bench, int size)
 		sort_five(bench);
 	else
 	{
-		number_of_buckets = create_buckets(size);
-		bucket_len = size / number_of_buckets;
-		if (size % number_of_buckets != 0)
-			bucket_len++;
-		start = 0;
-		end = bucket_len - 1;
-		while (start < size - 1)
-		{
-			search_and_push(bench, start, end);
-			start += bucket_len;
-			end += bucket_len;
-		}
-		clear_b(bench);
+		actual_sort(bench, size);
 	}
 	free(heap);
 }
