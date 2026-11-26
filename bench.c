@@ -6,7 +6,7 @@
 /*   By: maratana <maratana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 16:55:16 by maratana          #+#    #+#             */
-/*   Updated: 2026/11/24 14:53:37 by maratana         ###   ########.fr       */
+/*   Updated: 2026/11/26 10:12:23 by maratana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	printoperations(t_bench b)
 	ft_putnbr_fd(b.rrb, 2);
 	ft_putstr_fd(" rrr: ", 2);
 	ft_putnbr_fd(b.rrr, 2);
+	ft_putstr_fd("\n", 2);
+	
 }
 
 static void	putstrategy(t_bench bench)
